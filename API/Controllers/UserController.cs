@@ -50,7 +50,7 @@ public class UserController : BaseApiController
         return mapper.Map<UserDto>(data);
     }
 
-    [HttpGet]
+    [HttpGet("Pagination")]
     [Authorize(Roles = "Administrador")]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -132,11 +132,18 @@ public class UserController : BaseApiController
 
     private void SetRefreshTokenInCookie(string refreshToken)
     {
-        var cookieOptions = new CookieOptions
+        if (!string.IsNullOrEmpty(refreshToken))
         {
-            HttpOnly = true,
-            Expires = DateTime.UtcNow.AddDays(10),
-        };
-        Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(10),
+            };
+            Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+        }
+        else 
+        {
+            //
+        }
     }
 }

@@ -46,7 +46,7 @@ public class RolController : BaseApiController
         return mapper.Map<RolDto>(data);
     }
 
-    [HttpGet]
+    [HttpGet("Pagination")]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
